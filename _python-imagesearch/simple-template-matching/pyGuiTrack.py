@@ -4,7 +4,7 @@
 
 import pyautogui
 
-p = pyautogui.locateOnScreen('templates/winlogo.bmp')
+p = pyautogui.locateOnScreen('templates/firefox.bmp', confidence=0.6)
 loc = pyautogui.center(p)
-
-pyautogui.click(loc)
+# pyautogui.rightClick(loc)
+pyautogui.Click(loc)
