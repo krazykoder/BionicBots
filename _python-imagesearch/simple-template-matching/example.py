@@ -35,7 +35,7 @@ else:
 time1 = time.clock()
 for i in range(10):
     imagesearcharea("github.png", 0, 0, 800, 600)
-    imagesearcharea("panda.png", 0, 0, 800, 600)
+    # imagesearcharea("panda.png", 0, 0, 800, 600)
 print(str(time.clock() - time1) + " seconds (non optimized)")
 
 # optimized way :
@@ -44,7 +44,7 @@ time1 = time.clock()
 im = region_grabber((0, 0, 800, 600))
 for i in range(10):
     imagesearcharea("github.png", 0, 0, 800, 600, 0.8, im)
-    imagesearcharea("panda.png", 0, 0, 800, 600, 0.8, im)
+    # imagesearcharea("panda.png", 0, 0, 800, 600, 0.8, im)
 print(str(time.clock() - time1) + " seconds (optimized)")
 
 # sample output :
