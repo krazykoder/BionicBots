@@ -4,7 +4,7 @@
 
 import pyautogui
 
-p = pyautogui.locateOnScreen('templates/firefox.bmp', confidence=0.6)
+p = pyautogui.locateOnScreen('templates/chrome.bmp', confidence=0.8)
 loc = pyautogui.center(p)
 # pyautogui.rightClick(loc)
-pyautogui.Click(loc)
+pyautogui.click(loc)
