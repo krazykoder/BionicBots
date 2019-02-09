@@ -4,7 +4,7 @@
 
 import pyautogui
 
-p = pyautogui.locateOnScreen('images/winlogo.bmp')
+p = pyautogui.locateOnScreen('templates/winlogo.bmp')
 loc = pyautogui.center(p)
 
 pyautogui.click(loc)
