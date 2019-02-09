@@ -7,7 +7,7 @@ import argparse
 import imutils
 import glob
 import cv2
-from PIL import ImageGrab
+# from PIL import ImageGrab
 import PIL
 import pyautogui
 
@@ -39,7 +39,8 @@ while(True):
     # hsize = int((float(img.size[1]) * float(wpercent)))
     # printscreen_pil = img.resize((mywidth, hsize), PIL.Image.ANTIALIAS)
     #
-    printscreen_pil= ImageGrab.grab()
+    # printscreen_pil= ImageGrab.grab()
+    printscreen_pil = pyautogui.screenshot()
 
     printscreen_numpy = np.array(printscreen_pil.getdata(), dtype='uint8') \
         .reshape((printscreen_pil.size[1], printscreen_pil.size[0], 3))
