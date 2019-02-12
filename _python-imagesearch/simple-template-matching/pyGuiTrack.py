@@ -3,6 +3,7 @@
 #
 
 import pyautogui
+import PIL as Image
 
 p = pyautogui.locateOnScreen('templates/chrome.bmp', confidence=0.8)
 loc = pyautogui.center(p)

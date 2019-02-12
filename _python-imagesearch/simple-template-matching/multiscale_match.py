@@ -110,7 +110,6 @@ def find_in_image (image, template, scale):
     # the bookkeeping variable
     if found is None or maxVal > found[0]:
         found = (maxVal, maxLoc, r, scale)
-
     return found
 
 
@@ -129,12 +128,12 @@ def find_in_image (image, template, scale):
 # template = cv2.imread(args["template"])
 
 
-debug = False
+debug = True
 
 # template = cv2.imread ("templates/logo_chrome.png")
 # template = cv2.imread ("templates/logo_sublime.png")
 # template = cv2.imread ("templates/firefox.bmp")
-template = cv2.imread ("assets/foup.bmp")
+template = cv2.imread ("assets/unload-foup.bmp")
 # template = cv2.imread ("templates/chrome.bmp")
 # image = cv2.imread("templates/Screenshot.png")
 

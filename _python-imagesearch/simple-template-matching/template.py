@@ -12,7 +12,6 @@ class Templates:
 
     def __init__(self):
         self.static_templates = {
-            'foup-button': 'assets/' + 'foup' + '.bmp',
             'new-recipe': 'assets/' + 'newrecipe' + '.bmp',
             'setup-button': 'assets/' + 'setup' + '.bmp',
             'select-inspection': 'assets/' + 'selectinspection' + '.bmp',
@@ -24,11 +23,16 @@ class Templates:
             'unload-foup': 'assets/' + 'unload-foup' + '.bmp',
             'foup': 'assets/' + 'foup' + '.bmp',
             'load-wafer': 'assets/' + 'load-wafer' + '.bmp',
-            # 'unload-wafer': 'assets/' + 'unload-wafer' + '.bmp',
+            'unload-wafer': 'assets/' + 'unload-wafer' + '.bmp',
             'slot': 'assets/' + 'slot' + '.bmp',
             'loaded-slot': 'assets/' + 'loaded-slot' + '.bmp',
-            'close': 'assets/' + 'close' + '.bmp',
+            'close-button': 'assets/' + 'close' + '.bmp',
             'ok': 'assets/' + 'ok' + '.bmp',
+            'end': 'assets/' + 'end' + '.bmp',
+            'alignment-button': 'assets/' + 'alignmentUIbutton' + '.bmp',
+            'cancel': 'assets/' + 'cancel' + '.bmp',
+            'next': 'assets/' + 'next' + '.bmp',
+            'mark-site': 'assets/' + 'mark-site' + '.bmp',
             'selectsites': 'assets/' + 'selectsites' + '.bmp',
             'alignment-sites-dialog': 'assets/' + 'alignment-sites-dialog' + '.bmp',
             'yes': 'assets/' + 'yes' + '.bmp',
