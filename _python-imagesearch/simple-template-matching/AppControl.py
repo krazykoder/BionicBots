@@ -60,16 +60,16 @@ class Controller:
                 width, height = int(w * self.ratio), int(h * self.ratio)
                 image = image.resize((width, height), Image.ANTIALIAS)
 
-            p = pyautogui.locateOnScreen(image, confidence=0.8)
+            p = pyautogui.locateOnScreen(image, confidence=0.95)
             loc = pyautogui.center(p)
             # pyautogui.rightClick(loc)
 
-            print("pyautogui clicked")
+            print("pyautogui located icon.")
 
             return loc
 
         except :
-            print("locate button failed... probably imput scaling problem. Trying scaling algo")
+            print("locate button failed... probably input scaling problem. Trying scaling algo")
 
             if self.ratio == 1.0 :
                 found = self.vision.find_scaled_image(self.vision.get_screen_cv(1), self.template.cvtemplates[button])
@@ -85,7 +85,7 @@ class Controller:
             # # of the bounding box based on the resized ratio
 
 
-            if maxCorr > 0.93:
+            if maxCorr > 0.85:
                 (startX, startY) = (int(maxLoc[0] * self.ratio), int(maxLoc[1] * self.ratio))
                 (endX, endY) = (int((maxLoc[0] + tW) * self.ratio), int((maxLoc[1] + tH) * self.ratio))
                 loc = ((startX + endX) / 2, (startY + endY) / 2)

@@ -55,6 +55,52 @@ def find_squares(img):
 
     return squares
 
+
+def adaptive_squares  (img):
+
+    squares = []
+    img = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
+
+    # img = cv.GaussianBlur(img, (5, 5), 0)
+    # cv.imshow('Blur', img)
+    # cv.waitKey(0)
+
+    # global thresholding
+    ret1, th1 = cv.threshold(img, 127, 255, cv.THRESH_BINARY)
+
+    # Otsu's thresholding
+    ret2, th2 = cv.threshold(img, 0, 255, cv.THRESH_BINARY + cv.THRESH_OTSU)
+
+    # Otsu's thresholding after Gaussian filtering
+    blur = cv.GaussianBlur(img, (5, 5), 0)
+    ret3, th3 = cv.threshold(blur, 0, 255, cv.THRESH_BINARY + cv.THRESH_OTSU)
+
+    bin = cv.Canny(img, 0, 50, apertureSize=5)
+
+    cv.imshow('Global', th1)
+    cv.imshow('Otsu', th2)
+    cv.imshow('Global=>Otsu', th3)
+    cv.imshow('blur->canny', bin)
+
+    contours = cv.findContours(bin, cv.RETR_LIST, cv.CHAIN_APPROX_SIMPLE)
+    contours = imutils.grab_contours(contours)
+    contours = sorted(contours, key=cv.contourArea, reverse=True)[:5]
+
+    # cv.drawContours(img, contours, -1, (0, 255, 0), 3)
+
+    for cnt in contours:
+        cnt_len = cv.arcLength(cnt, True)
+        cnt = cv.approxPolyDP(cnt, 0.02 * cnt_len, True)
+        if len(cnt) == 4 and cv.contourArea(cnt) > 330 \
+                and cv.isContourConvex(cnt):
+            cnt = cnt.reshape(-1, 2)
+            max_cos = np.max([angle_cos(cnt[i], cnt[(i + 1) % 4], cnt[(i + 2) % 4]) for i in xrange(4)])
+            if max_cos < 0.1:
+                squares.append(cnt)
+
+    return squares
+
+
 if __name__ == '__main__':
     from glob import glob
     # for fn in glob('calculatorUI.png'):
@@ -64,7 +110,8 @@ if __name__ == '__main__':
     # fn = 'UIView.gif'
     img = cv.imread(fn)
 
-    squares = find_squares(img)
+    # squares = find_squares(img)
+    squares = adaptive_squares(img)
     cv.drawContours( img, squares, -1, (0, 255, 0), 3 )
     cv.imshow('squares', img)
     cv.waitKey(0)

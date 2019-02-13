@@ -93,7 +93,9 @@ class botVision:
             # matching to find the template in the image
             # edged = cv2.Canny(resized, 50, 200)
             edged = resized.copy()
-            result = cv2.matchTemplate(edged, template, cv2.TM_CCORR_NORMED)
+            # blur = cv2.GaussianBlur(edged, (5, 5), 0)
+            # ret3, edged = cv2.threshold(blur, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+            result = cv2.matchTemplate(edged, template, cv2.TM_CCOEFF_NORMED)
 
             # TM_CCOEFF_NORMED for color images
             # TM_CCORR_NORMED for edged images ()
@@ -146,7 +148,7 @@ class botVision:
         # matching to find the template in the image
         # edged = cv2.Canny(resized, 50, 200)
         edged = resized.copy()
-        result = cv2.matchTemplate(edged, template, cv2.TM_CCORR_NORMED)
+        result = cv2.matchTemplate(edged, template, cv2.TM_CCOEFF_NORMED)
 
         # TM_CCOEFF_NORMED for color images
         # TM_CCORR_NORMED for edged images ()

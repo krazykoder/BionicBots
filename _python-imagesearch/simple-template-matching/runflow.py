@@ -26,23 +26,22 @@ recipe_flow = [
     ('loading-wafer-dialog', 1),
     ('close-button',0),
     ('wafer-button', 0 ),
-    # ('wafer-button', 0),
-    # ('wafer-button', 0),
     ('alignment-button', 0),
     ('selectsites', 0),
-    # ('alignment-sites-dialog', 1),
+    ('alignment-sites-dialog', 0),
     ('yes', 0),
     ('BF', 0),
     ('ok', 0),
     ('move_up', 0),
+    ('cancel', 0),
     ('cancel', 0 ),
-    # ('cancel', 0 ),
-    ('end', 0 ),
-    ('end', 0 ),
+    ('end', 0),
+    # ('end', 1),
+    # ('end', 0),
     ('foup', 0),
     ('unload-wafer', 0),
     ('close-button', 0),
-
+    ('end', 0),
 ]
 
 # controller.click_button("foup")
@@ -59,7 +58,6 @@ time.sleep(3)
 #     print('Scaling factor setup complete')
 #
 
-
 pos = 0
 waiter = False
 while True and pos < len(recipe_flow) :
@@ -70,10 +68,12 @@ while True and pos < len(recipe_flow) :
         if controller.click_button(action):
             pos += 1
             print ( "click", action, "success!" )
+        else :
+            print ("Failed Click action.")
 
     else : # wait timer
+        print(pos, action, atype)
         if controller.wait_ui(action):
-            print (pos, action, atype)
             print ("Sleeping ...")
             time.sleep(0.5)
         else :
