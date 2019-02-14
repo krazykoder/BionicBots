@@ -60,7 +60,7 @@ class Controller:
                 width, height = int(w * self.ratio), int(h * self.ratio)
                 image = image.resize((width, height), Image.ANTIALIAS)
 
-            p = pyautogui.locateOnScreen(image, confidence=0.95)
+            p = pyautogui.locateOnScreen(image, confidence=0.90)
             loc = pyautogui.center(p)
             # pyautogui.rightClick(loc)
 
