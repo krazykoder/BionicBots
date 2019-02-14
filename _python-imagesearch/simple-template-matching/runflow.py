@@ -5,16 +5,21 @@
 from template import Templates
 from botVision import botVision
 from AppControl import Controller
+from DL_Predict import DLPredictor
 import time
+from PIL import Image
+import cv2
+import numpy as np
 import pyautogui
 
 template = Templates()
 vision = botVision()
+predictor = DLPredictor()
+controller = Controller(vision, template)
+
+
 # view1 = vision.get_screen_cv(1)
 # view2 = vision.get_screen_cv(2)
-
-
-controller = Controller(vision, template)
 
 # 0 - click, 1 - search/wait
 recipe_flow = [
@@ -84,46 +89,73 @@ time.sleep(3)
 
 
 
-# Serpentine OM navigation @ 500un @ 5x
+# # Serpentine OM navigation @ 500un @ 5x
+#
+# x = 0
+# y = 0
+# motion = 0  # 0 right # 1 left
+# xstep = 5
+# ystep = 5
+# while y < ystep :
+#     if motion == 0 :
+#         print ( x, y, motion)
+#         controller.click_button("move_right")
+#         pyautogui.press('esc')
+#         pyautogui.move(100,100)
+#         x += 1
+#         if x >= xstep:
+#             motion = 1
+#             controller.click_button("move_down")
+#             pyautogui.press('esc')
+#             pyautogui.move(100, 100)
+#             y += 1
+#             x -= 1
+#             print(x, y, motion)
+#
+#     elif motion == 1 :
+#         print ( x, y, motion)
+#         controller.click_button("move_left")
+#         pyautogui.press('esc')
+#         pyautogui.move(100, 100)
+#         x -=1
+#         if x <= 0 :
+#             motion = 0
+#             print(x, y, motion)
+#             y +=1
+#             x += 1
+#             controller.click_button("move_down")
+#             pyautogui.press('esc')
+#             pyautogui.move(100, 100)
+#             #
+#     # elif motion == 2 :
+#     #     controller.click_button("move-down")
+#
+#     time.sleep(0.5)
 
-x = 0
-y = 0
-motion = 0  # 0 right # 1 left
-xstep = 5
-ystep = 5
-while y < ystep :
-    if motion == 0 :
-        print ( x, y, motion)
-        controller.click_button("move_right")
-        pyautogui.press('esc')
-        pyautogui.move(100,100)
-        x += 1
-        if x >= xstep:
-            motion = 1
-            controller.click_button("move_down")
-            pyautogui.press('esc')
-            pyautogui.move(100, 100)
-            y += 1
-            x -= 1
-            print(x, y, motion)
 
-    elif motion == 1 :
-        print ( x, y, motion)
-        controller.click_button("move_left")
-        pyautogui.press('esc')
-        pyautogui.move(100, 100)
-        x -=1
-        if x <= 0 :
-            motion = 0
-            print(x, y, motion)
-            y +=1
-            x += 1
-            controller.click_button("move_down")
-            pyautogui.press('esc')
-            pyautogui.move(100, 100)
-            #
-    # elif motion == 2 :
-    #     controller.click_button("move-down")
+# Predictor logic
+# set viewport
+# monitor = {'top': 0, 'left': 0, 'width': 1920, 'height': 1080}
+# 1680x 1050
+monitor = {'top': 225, 'left': 540, 'width': 600, 'height': 600}
 
-    time.sleep(0.5)
+
+while True:
+    viewPort = vision.get_screen_cv_port(2, monitor)
+    open_cv_image = np.array(viewPort)
+    # Convert RGB to BGR
+    open_cv_image = open_cv_image[:, :, ::-1].copy()
+
+    (result, classes) = predictor.predict(viewPort)
+
+    font = cv2.FONT_HERSHEY_DUPLEX  # color
+    # cv2.putText(frame, peop_conf , (left + 6, bottom - 6), font, 0.5, (255, 255, 255), 1)
+    cv2.putText(open_cv_image, classes, (0, 15), font, 0.5, (255, 255, 255), 1)
+
+    cv2.imshow('botView', open_cv_image)
+    k = cv2.waitKey(1)
+    if k == 27:  # Esc key to stop
+        break
+
+    # time.sleep(1)
 

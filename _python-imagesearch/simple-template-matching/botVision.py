@@ -38,6 +38,25 @@ class botVision:
             image = image[:, :, ::-1]  # rgb to brg for CV2 needed to reproduce original
         return image
 
+    def get_screen_cv_port (self, monitor_number, portal):
+        with mss.mss() as sct:
+            mon = sct.monitors[monitor_number]
+            monitor = {
+                "top": mon["top"] + portal["top"],  # 100px from the top
+                "left": mon["left"] + portal["left"],  # 100px from the left
+                "width": portal["width"],
+                "height": portal["height"],
+                "mon": monitor_number,
+            }
+            img = sct.grab(monitor)
+            # img = Image.frombytes('RGB', img.size, img.rgb)
+            # # img.save("test.png")
+            # image = np.array(img)
+            # image = image[:, :, ::-1]  # rgb to brg for CV2 needed to reproduce original
+
+            image = Image.frombytes('RGB', img.size, img.rgb)
+        return image
+
     def view_cv (self):
         return
 
