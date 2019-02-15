@@ -72,7 +72,7 @@ class DLPredictor:
 
         classes = ["Scribe", "NonScribe"]
         predicted_class = classes[np.argmax(predictions[0])]
-        print(classes[np.argmax(predictions[0])])
+        # print(classes[np.argmax(predictions[0])])
 
         # i = 0
         # plt.imshow(predict_data[i][0], cmap=plt.cm.binary)

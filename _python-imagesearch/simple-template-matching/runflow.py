@@ -94,8 +94,8 @@ time.sleep(3)
 # x = 0
 # y = 0
 # motion = 0  # 0 right # 1 left
-# xstep = 5
-# ystep = 5
+# xstep = 60
+# ystep = 60
 # while y < ystep :
 #     if motion == 0 :
 #         print ( x, y, motion)
@@ -130,7 +130,7 @@ time.sleep(3)
 #     # elif motion == 2 :
 #     #     controller.click_button("move-down")
 #
-#     time.sleep(0.5)
+#     time.sleep(0.25)
 
 
 # Predictor logic
@@ -148,9 +148,10 @@ while True:
 
     (result, classes) = predictor.predict(viewPort)
 
+
     font = cv2.FONT_HERSHEY_DUPLEX  # color
     # cv2.putText(frame, peop_conf , (left + 6, bottom - 6), font, 0.5, (255, 255, 255), 1)
-    cv2.putText(open_cv_image, classes, (0, 15), font, 0.5, (255, 255, 255), 1)
+    cv2.putText(open_cv_image, classes + str(result[0]) , (0, 15), font, 0.5, (255, 255, 255), 1)
 
     cv2.imshow('botView', open_cv_image)
     k = cv2.waitKey(1)
