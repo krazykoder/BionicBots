@@ -13,6 +13,7 @@ class Templates:
     def __init__(self):
         self.static_templates = {
             'new-recipe': 'assets/' + 'newrecipe' + '.bmp',
+            'new-inspection': 'assets/' + 'new-inspection' + '.bmp',
             'setup-button': 'assets/' + 'setup' + '.bmp',
             'select-inspection': 'assets/' + 'selectinspection' + '.bmp',
             'wafer-button': 'assets/' + 'wafer' + '.bmp',

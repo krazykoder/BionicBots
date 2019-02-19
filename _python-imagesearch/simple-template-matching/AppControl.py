@@ -51,6 +51,8 @@ class Controller:
             # pyautogui.click(loc)
             return True
 
+
+
     def locatebutton(self, button):
         image = Image.open(self.template.templates[button])
         (tH, tW) = self.template.cvtemplates[button].shape[:2]
@@ -96,5 +98,52 @@ class Controller:
 
         return loc
 
+    def confirm_ui (self, button):
+        print(self.template.templates[button])
+        print(self.template.templates[button])
+        loc = self.locatebutton_rescale(button)
 
+        if loc == (-1, -1):
+            return False;
+        else:
+            # pyautogui.click(loc)
+            return True
+
+    def locatebutton_rescale(self, button):
+        image = Image.open(self.template.templates[button])
+        (tH, tW) = self.template.cvtemplates[button].shape[:2]
+        try:
+            if self.ratio != 1.0 :
+                w, h = image.size
+                width, height = int(w * self.ratio), int(h * self.ratio)
+                image = image.resize((width, height), Image.ANTIALIAS)
+
+            p = pyautogui.locateOnScreen(image, confidence=0.90)
+            loc = pyautogui.center(p)
+            # pyautogui.rightClick(loc)
+
+            print("pyautogui located icon.")
+
+            return loc
+
+        except :
+            print("locate button failed... probably input scaling problem. Trying scaling algo")
+
+            found = self.vision.find_scaled_image(self.vision.get_screen_cv(1), self.template.cvtemplates[button])
+            (maxCorr, maxLoc, r, scale) = found
+
+            # # unpack the bookkeeping varaible and compute the (x, y) coordinates
+            # # of the bounding box based on the resized ratio
+
+
+            if maxCorr > 0.85:
+                (startX, startY) = (int(maxLoc[0] * self.ratio), int(maxLoc[1] * self.ratio))
+                (endX, endY) = (int((maxLoc[0] + tW) * self.ratio), int((maxLoc[1] + tH) * self.ratio))
+                loc = ((startX + endX) / 2, (startY + endY) / 2)
+            else :
+                loc = (-1,-1)
+                print ("Failed all image searches")
+            pass
+
+        return loc
 
